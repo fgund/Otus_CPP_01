@@ -1,0 +1,44 @@
+cmake_minimum_required(VERSION 3.2)
+
+project(Otus_CPP_01 VERSION 0.0.1)
+
+add_executable(helloworld_cli main.cpp)
+
+set_target_properties(helloworld_cli PROPERTIES
+    CXX_STANDARD 14
+    CXX_STANDARD_REQUIRED ON
+)
+
+if (MSVC)
+    target_compile_options(helloworld_cli PRIVATE
+        /W4
+    )
+else ()
+    target_compile_options(helloworld_cli PRIVATE
+        -Wall -Wextra -pedantic -Werror
+    )
+
+endif()
+
+
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/)
+install(TARGETS helloworld_cli
+        RUNTIME DESTINATION bin)
+
+if (MSVC)
+    set(CPACK_GENERATOR NSIS)
+else ()
+    set(CPACK_GENERATOR DEB)
+endif()
+
+set(CPACK_PACKAGE_NAME "HelloWorld")
+
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+
+set(CPACK_PACKAGE_CONTACT example@example.com)
+set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README.md)
+
+include(CPack)
