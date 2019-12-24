@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(Otus_CPP_01 VERSION 0.0.1)
+CHECK_VARIABLE_EXISTS(TRAVIS_BUILD_NUMBER HAS_TRAVIS_BUILD_NUMBER)
+if (!HAS_TRAVIS_BUILD_NUMBER)
+  set(HAS_TRAVIS_BUILD_NUMBER 1)
+endif()
+
+project(Otus_CPP_01 VERSION 0.0.$TRAVIS_BUILD_NUMBER)
 
 add_executable(helloworld_cli main.cpp)
 
