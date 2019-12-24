@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 
 if(NOT DEFINED ENV{TRAVIS_BUILD_NUMBER})
-  message("TRAVIS_BUILD_NUMBER not defined")
+  message("TRAVIS_BUILD_NUMBER not defined. Setting its value to 1.")
   set(ENV{TRAVIS_BUILD_NUMBER} 1)
 endif(NOT DEFINED ENV{TRAVIS_BUILD_NUMBER})
 
@@ -25,8 +25,9 @@ else ()
 
 endif()
 
-
-set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/)
+if (MSVC)
+  set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/)
+endif()
 install(TARGETS helloworld_cli
         RUNTIME DESTINATION bin)
 
