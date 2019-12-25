@@ -1,0 +1,8 @@
+[requires]
+boost_test/1.69.0@bincrafters/stable 
+
+[generators]
+cmake
+
+[options]
+boost_test:shared=False
