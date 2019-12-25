@@ -4,7 +4,7 @@ before_script:
 - sudo apt-get update -qq
 script:
 - cmake .
-- cmake --build .
+- cmake --build . --config Release
 - cmake --build . --target package
 deploy:
   provider: script
