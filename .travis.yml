@@ -1,7 +1,17 @@
+os: linux
 language: cpp
+language: python
+python: "3.7"
+dist: xenial
+compiler:
+  - gcc
+install:
+# Install conan
+  - pip install conan
+# Automatic detection of your arch, compiler, etc.
+  - conan user
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
-- echo "deb https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_21_0" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 script:
 - conan install .
