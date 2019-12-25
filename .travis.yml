@@ -1,8 +1,7 @@
 language: cpp
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
-- pip install --upgrade pip
-- pip install conan
+- echo "deb https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_21_0.deb" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 script:
 - conan install .
