@@ -3,8 +3,6 @@ language: cpp
 language: python
 python: "3.7"
 dist: xenial
-compiler:
-  - gcc
 install:
 # Install conan
   - pip install conan
@@ -14,6 +12,7 @@ before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 script:
+- conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 - conan install .
 - cmake .
 - cmake --build . --config Release
