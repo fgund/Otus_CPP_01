@@ -1,6 +1,5 @@
 os: linux
-language: cpp
-language: python
+language: cpp python
 python: "3.7"
 dist: xenial
 install:
@@ -16,7 +15,7 @@ script:
 - conan install .
 - cmake .
 - cmake --build . --config Release
-- cmake --build . --target test
+- ctest .
 - cmake --build . --target package
 deploy:
   provider: script
