@@ -9,7 +9,6 @@ project(Otus_CPP_01 VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 configure_file(version.h.in version.h)
 
-set(_GLIBCXX_USE_CXX11_ABI 1)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake) 
 conan_basic_setup()
 
