@@ -18,7 +18,7 @@ add_executable(boost_test_version boost_test_version.cpp)
 add_executable(g_test_version g_test_version.cpp)
 add_executable(catch_test_version catch_test_version.cpp)
 
-set_target_properties(helloworld_cli helloworld boost_test_version g_test_version PROPERTIES
+set_target_properties(helloworld_cli helloworld boost_test_version g_test_version catch_test_version PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
@@ -45,10 +45,10 @@ target_link_libraries(catch_test_version
 
 if (MSVC)
     target_compile_options(helloworld_cli PRIVATE
-        /W4
+        /W4 /MD
     )
     target_compile_options(helloworld PRIVATE
-        /W4
+        /W4 /MD
     )
     target_compile_options(boost_test_version PRIVATE
        /W4 /MD
