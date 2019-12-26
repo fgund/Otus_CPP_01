@@ -13,8 +13,8 @@ before_script:
 - sudo apt-get update -qq
 script:
 - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+- conan install -s compiler.libcxx=libstdc++11 .
 - conan profile update settings.compiler.libcxx=libstdc++11 default
-- conan install .
 - cmake .
 - cmake --build . --config Release
 - cmake --build . --target test
