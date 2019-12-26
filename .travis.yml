@@ -2,13 +2,10 @@ os: linux
 language: cpp 
 dist: xenial
 install:
-  - sudo apt-get install python3
-# Install conan
-  - pip install conan
-# Automatic detection of your arch, compiler, etc.
-  - conan user
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
+- curl https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_21_0.deb --output conan.deb
+- sudo dpkg -i conan.deb
 - sudo apt-get update -qq
 script:
 - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
