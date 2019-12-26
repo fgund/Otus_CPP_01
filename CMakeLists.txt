@@ -16,6 +16,7 @@ add_executable(helloworld_cli main.cpp)
 add_library(helloworld lib.cpp)
 add_executable(boost_test_version boost_test_version.cpp)
 add_executable(g_test_version g_test_version.cpp)
+add_executable(catch_test_version catch_test_version.cpp)
 
 set_target_properties(helloworld_cli helloworld boost_test_version g_test_version PROPERTIES
     CXX_STANDARD 14
@@ -37,6 +38,10 @@ target_link_libraries(g_test_version
     helloworld
     ${CONAN_LIBS}
 )
+target_link_libraries(catch_test_version
+    helloworld
+    ${CONAN_LIBS}
+)
 
 if (MSVC)
     target_compile_options(helloworld_cli PRIVATE
@@ -51,6 +56,9 @@ if (MSVC)
     target_compile_options(g_test_version PRIVATE
         /W4 /MD
     )
+    target_compile_options(catch_test_version PRIVATE
+        /W4 /MD
+    )
 else ()
     target_compile_options(helloworld_cli PRIVATE
         -Wall -Wextra -pedantic -Werror
@@ -62,6 +70,9 @@ else ()
         -Wall -Wextra -pedantic -Werror
     )
     target_compile_options(g_test_version PRIVATE
+        -Wall -Wextra -pedantic -Werror
+    )
+    target_compile_options(catch_test_version PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
 endif()
@@ -93,3 +104,4 @@ enable_testing()
 
 add_test(boost_test_version "bin/boost_test_version")
 add_test(g_test_version "bin/g_test_version")
+add_test(catch_test_version "bin/catch_test_version")

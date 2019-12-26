@@ -1,6 +1,7 @@
 [requires]
 boost_test/1.69.0@bincrafters/stable 
 gtest/1.8.1@bincrafters/stable 
+Catch/1.12.1@bincrafters/stable 
 
 [generators]
 cmake
