@@ -14,15 +14,12 @@ conan_basic_setup()
 
 add_executable(helloworld_cli main.cpp)
 add_library(helloworld lib.cpp)
-add_executable(boost_test_version boost_test_version.cpp)
+#add_executable(boost_test_version boost_test_version.cpp)
+add_executable(g_test_version g_test_version.cpp)
 
-set_target_properties(helloworld_cli helloworld PROPERTIES
+set_target_properties(helloworld_cli helloworld g_test_version PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
-)
-set_target_properties(boost_test_version PROPERTIES
-    CXX_STANDARD 14
-    _GLIBCXX_USE_CXX11_ABI 0
 )
 
 target_include_directories(helloworld
@@ -32,7 +29,11 @@ target_include_directories(helloworld
 target_link_libraries(helloworld_cli PRIVATE
     helloworld
 )
-target_link_libraries(boost_test_version
+#target_link_libraries(boost_test_version
+#    helloworld
+#    ${CONAN_LIBS}
+#)
+target_link_libraries(g_test_version
     helloworld
     ${CONAN_LIBS}
 )
@@ -44,7 +45,10 @@ if (MSVC)
     target_compile_options(helloworld PRIVATE
         /W4
     )
-    target_compile_options(boost_test_version PRIVATE
+#    target_compile_options(boost_test_version PRIVATE
+#       /W4 /MD
+#    )
+    target_compile_options(g_test_version PRIVATE
         /W4 /MD
     )
 else ()
@@ -54,7 +58,10 @@ else ()
     target_compile_options(helloworld PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(boost_test_version PRIVATE
+#    target_compile_options(boost_test_version PRIVATE
+#        -Wall -Wextra -pedantic -Werror
+#    )
+    target_compile_options(g_test_version PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
 endif()
@@ -84,4 +91,4 @@ include(CPack)
 
 enable_testing()
 
-add_test(boost_test_version boost_test_version)
+add_test(g_test_version g_test_version)
