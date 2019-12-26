@@ -16,10 +16,15 @@ add_executable(helloworld_cli main.cpp)
 add_library(helloworld lib.cpp)
 add_executable(boost_test_version boost_test_version.cpp)
 
-set_target_properties(helloworld_cli helloworld boost_test_version PROPERTIES
+set_target_properties(helloworld_cli helloworld PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
+set_target_properties(boost_test_version PROPERTIES
+    CXX_STANDARD 14
+    _GLIBCXX_USE_CXX11_ABI 0
+)
+
 target_include_directories(helloworld
     PRIVATE "${CMAKE_BINARY_DIR}"
 )

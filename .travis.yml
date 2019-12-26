@@ -1,22 +1,25 @@
 os: linux
-language: cpp 
+language: cpp
+language: python
+python: "3.7"
 dist: xenial
 install:
+# Install conan
+  - pip install conan
+# Automatic detection of your arch, compiler, etc.
+  - conan user
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
-- curl https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_21_0.deb --output conan.deb
-- sudo dpkg -i conan.deb
 - sudo apt-get update -qq
 script:
 - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 - conan install .
 - cmake .
 - cmake --build . --config Release
-- ctest .
+- cmake --build . --target test
 - cmake --build . --target package
 deploy:
   provider: script
   skip_cleanup: true
   script:
   - curl -T HelloWorld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ufgund:$BINTRAY_API_KEY "https://api.bintray.com/content/fgund/OTUS_CPP/Otus_Cpp_01/$TRAVIS_BUILD_NUMBER/HelloWorld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
-
