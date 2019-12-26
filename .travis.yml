@@ -2,7 +2,7 @@ os: linux
 language: cpp 
 dist: xenial
 install:
-  - apt-get install python3
+  - sudo apt-get install python3
 # Install conan
   - pip install conan
 # Automatic detection of your arch, compiler, etc.
