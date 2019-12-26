@@ -91,4 +91,4 @@ include(CPack)
 
 enable_testing()
 
-add_test(g_test_version g_test_version)
+add_test(g_test_version "bin/g_test_version")
