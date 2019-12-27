@@ -1,6 +1,5 @@
 os: linux
 language: cpp
-language: python
 python: "3.7"
 dist: xenial
 install:
