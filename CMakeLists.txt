@@ -9,8 +9,16 @@ project(Otus_CPP_01 VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 configure_file(version.h.in version.h)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake) 
-conan_basic_setup()
+# Download automatically, you can also just copy the conan.cmake file
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+   message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+   file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/master/conan.cmake"
+                  "${CMAKE_BINARY_DIR}/conan.cmake")
+endif()
+
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_cmake_run(CONANFILE conanfile.txt
+                BASIC_SETUP CMAKE_TARGETS)
 
 add_executable(helloworld_cli main.cpp)
 add_library(helloworld lib.cpp)
@@ -32,15 +40,15 @@ target_link_libraries(helloworld_cli PRIVATE
 )
 target_link_libraries(boost_test_version
     helloworld
-    ${CONAN_LIBS}
+    CONAN_PKG::boost_test
 )
 target_link_libraries(g_test_version
     helloworld
-    ${CONAN_LIBS}
+    CONAN_PKG::gtest
 )
 target_link_libraries(catch_test_version
     helloworld
-    ${CONAN_LIBS}
+    CONAN_PKG::Catch
 )
 
 if (MSVC)
@@ -80,7 +88,11 @@ endif()
 if (MSVC)
   set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/)
 endif()
-install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
+install(TARGETS helloworld_cli 
+                           boost_test_version
+                           g_test_version
+                           catch_test_version
+ RUNTIME DESTINATION bin)
 
 if (MSVC)
     set(CPACK_GENERATOR NSIS)
