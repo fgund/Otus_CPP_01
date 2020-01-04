@@ -10,7 +10,7 @@ project(Otus_CPP_01 VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 configure_file(version.h.in version.h)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake) 
-conan_basic_setup()
+conan_basic_setup(TARGETS)
 
 add_executable(helloworld_cli main.cpp)
 add_library(helloworld lib.cpp)
@@ -32,15 +32,15 @@ target_link_libraries(helloworld_cli PRIVATE
 )
 target_link_libraries(boost_test_version
     helloworld
-    ${CONAN_LIBS}
+    CONAN_PKG::boost_test
 )
 target_link_libraries(g_test_version
     helloworld
-    ${CONAN_LIBS}
+    CONAN_PKG::gtest
 )
 target_link_libraries(catch_test_version
     helloworld
-    ${CONAN_LIBS}
+    CONAN_PKG::Catch
 )
 
 if (MSVC)
